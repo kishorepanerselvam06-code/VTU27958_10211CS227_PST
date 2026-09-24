@@ -1,0 +1,59 @@
+class ThroneInheritance {
+
+    private class Person {
+        String name;
+        boolean alive;
+        java.util.List<Person> children;
+
+        Person(String name) {
+            this.name = name;
+            this.alive = true;
+            this.children = new java.util.ArrayList<>();
+        }
+    }
+
+    private Person king;
+    private java.util.Map<String, Person> people;
+
+    public ThroneInheritance(String kingName) {
+        king = new Person(kingName);
+        people = new java.util.HashMap<>();
+        people.put(kingName, king);
+    }
+
+    public void birth(String parentName, String childName) {
+        Person parent = people.get(parentName);
+        Person child = new Person(childName);
+
+        parent.children.add(child);
+        people.put(childName, child);
+    }
+
+    public void death(String name) {
+        people.get(name).alive = false;
+    }
+
+    public java.util.List<String> getInheritanceOrder() {
+        java.util.List<String> result = new java.util.ArrayList<>();
+        dfs(king, result);
+        return result;
+    }
+
+    private void dfs(Person person, java.util.List<String> result) {
+        if (person.alive) {
+            result.add(person.name);
+        }
+
+        for (Person child : person.children) {
+            dfs(child, result);
+        }
+    }
+}
+
+Output:
+
+Input
+["ThroneInheritance", "birth", "birth", "birth", "birth", "birth", "birth", "getInheritanceOrder", "death", "getInheritanceOrder"]
+[["king"], ["king", "andy"], ["king", "bob"], ["king", "catherine"], ["andy", "matthew"], ["bob", "alex"], ["bob", "asha"], [null], ["bob"], [null]]
+Output
+[null, null, null, null, null, null, null, ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"], null, ["king", "andy", "matthew", "alex", "asha", "catherine"]]

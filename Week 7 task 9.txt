@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+class Printer {
+    public <T> void printArray(T[] array) {
+        for (T element : array) {
+            System.out.println(element);
+        }
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Printer printer = new Printer();
+
+        Integer[] intArray = {1, 2, 3};
+        String[] stringArray = {"Hello", "World"};
+
+        printer.printArray(intArray);
+        printer.printArray(stringArray);
+
+        sc.close();
+    }
+}
+
+Output:
+
+Your Output (stdout)
+1
+2
+3
+Hello
+World
+Expected Output
+1
+2
+3
+Hello
+World

@@ -1,0 +1,42 @@
+interface Food {
+	 public String getType();
+	}
+	class Pizza implements Food {
+	 public String getType() {
+	 return "Someone ordered a Fast Food!";
+	 }
+	}
+
+	class Cake implements Food {
+
+	 public String getType() {
+	 return "Someone ordered a Dessert!";
+	 }
+	}
+	class FoodFactory {
+		public Food getFood(String order) {
+
+if (order.equalsIgnoreCase("pizza")) {
+    return new Pizza();
+} else if (order.equalsIgnoreCase("cake")) {
+    return new Cake();
+}
+return null;
+
+
+Output:
+
+Sample Input 1
+
+cake
+Sample Output 1
+
+The factory returned class Cake
+Someone ordered a Dessert!
+Sample Input 2
+
+pizza
+Sample Output 2
+
+The factory returned class Pizza
+Someone ordered Fast Food!

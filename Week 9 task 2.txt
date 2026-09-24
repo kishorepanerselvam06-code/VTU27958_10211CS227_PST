@@ -1,0 +1,121 @@
+import java.util.*;
+
+class InvalidBookingException extends Exception {
+    InvalidBookingException(String message) {
+        super(message);
+    }
+}
+
+abstract class Vehicle {
+    abstract double calculateFare(double distance);
+}
+
+class Bike extends Vehicle {
+    @Override
+    double calculateFare(double distance) {
+        return distance * 5;
+    }
+}
+
+class Auto extends Vehicle {
+    @Override
+    double calculateFare(double distance) {
+        return distance * 12;
+    }
+}
+
+class Cab extends Vehicle {
+    @Override
+    double calculateFare(double distance) {
+        return distance * 12;
+    }
+}
+
+class Driver {
+    String name;
+    Vehicle vehicle;
+
+    Driver(String name, Vehicle vehicle) {
+        this.name = name;
+        this.vehicle = vehicle;
+    }
+}
+
+class Rider {
+    String name;
+
+    Rider(String name) {
+        this.name = name;
+    }
+}
+
+class Trip {
+    Rider rider;
+    Driver driver;
+    double distance;
+
+    Trip(Rider rider, Driver driver, double distance) {
+        this.rider = rider;
+        this.driver = driver;
+        this.distance = distance;
+    }
+
+    double getFare() throws InvalidBookingException {
+        if (distance <= 0) {
+            throw new InvalidBookingException("Invalid booking");
+        }
+
+        return driver.vehicle.calculateFare(distance);
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            String rideType = sc.next();
+            double distance = sc.nextDouble();
+
+            Vehicle vehicle;
+
+            if (rideType.equalsIgnoreCase("Bike")) {
+                vehicle = new Bike();
+            } else if (rideType.equalsIgnoreCase("Auto")) {
+                vehicle = new Auto();
+            } else if (rideType.equalsIgnoreCase("Cab")) {
+                vehicle = new Cab();
+            } else {
+                System.out.println("Invalid booking");
+                continue;
+            }
+
+            Rider rider = new Rider("Rider1");
+            Driver driver = new Driver("Driver1", vehicle);
+            Trip trip = new Trip(rider, driver, distance);
+
+            try {
+                double fare = trip.getFare();
+                System.out.println((int) fare);
+            } catch (InvalidBookingException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        sc.close();
+    }
+}
+
+Output:
+
+3
+Bike 10
+Cab 15
+Auto 8
+
+
+50
+180
+96

@@ -1,0 +1,19 @@
+
+class Arithmetic {
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+
+class Adder extends Arithmetic {
+}
+
+Output:
+
+
+Your Output (stdout)
+My superclass is: Arithmetic
+42 13 20
+Expected Output
+My superclass is: Arithmetic
+42 13 20
